@@ -3,4 +3,4 @@ struct process
 {
     int pro_name;
     int arrT, waiturnT, turnT, priority,burT, burTcopy;
-}queue1[10],queue2[10];
+}queue1[10];
