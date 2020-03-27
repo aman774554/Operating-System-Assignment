@@ -3,7 +3,7 @@ struct process
 {
     int pro_name;
     int arrT, waiturnT, turnT, priority,burT, burTcopy;
-}queue1[10];
+}queue1[10],queue2[10];
 int main()
 {
 	struct process temp;
@@ -29,7 +29,7 @@ int main()
         fflush(stdin);
         scanf("%d",&queue1[i].priority);
     }
-     printf("\nEnter Time Quantum for Fixed priority queue:-");
+    printf("\nEnter Time Quantum for Fixed priority queue:-");
     scanf("%d",&t1);
     printf("\nEnter Time Quantum for Round Robin queue:-");
     scanf("%d",&t2);
@@ -71,3 +71,64 @@ int main()
 			}
 			time++;
 			queue1[i].burT--;
+			if(queue1[i].burT==0)
+			{
+				queue1[i].turnT=time-queue1[i].arrT;
+				queue1[i].waiturnT=queue1[i].turnT-queue1[i].burTcopy;
+				printf("%d\t|\t%d\t|\t%d\n",queue1[i].pro_name,queue1[i].turnT,queue1[i].waiturnT);
+				wait_time+=time-queue1[i].waiturnT; 
+    			turnaround_time+=time-queue1[i].turnT;
+    			for(k=i;k<totalProcess-1;k++)
+    				queue1[k]=queue1[k+1];i--;
+    			totalProcess--;
+				count=t1;break;
+			}
+		}
+		count=0;
+		if(queue1[i].burT!=0)
+		{
+			queue2[pf2]=queue1[i];
+			pf2++;
+			for(k=i;k<totalProcess-1;k++)
+    			queue1[k]=queue1[k+1];
+    		totalProcess--;
+		}
+			if(i==totalProcess-1)
+				i=-1;
+	}
+	
+	totalProcess2=pf2;
+	for(count=0;totalProcess2!=0;) 
+	{ 
+		if(queue2[count].burT<=t2&&queue2[count].burT>0) 
+    	{ 
+    		time+=queue2[count].burT; 
+    		queue2[count].burT=0; 
+    		flag=1; 
+    	} 
+    	else if(queue2[count].burT>0) 
+    	{ 
+    		queue2[count].burT-=t2; 
+    		time+=t2; 
+    	} 
+    	if(queue2[count].burT==0&&flag==1) 
+    	{ 
+    		totalProcess2--; 
+    		queue2[count].turnT=time-queue2[count].arrT;
+			queue2[count].waiturnT=queue2[count].turnT-queue2[count].burTcopy; 
+			printf("%d\t|\t%d\t|\t%d\n",queue2[count].pro_name,queue2[count].turnT,queue2[count].waiturnT); 
+    		turnaround_time+=time-queue2[count].arrT; 
+    		wait_time+=time-queue2[count].arrT-queue2[count].burTcopy;
+    		for(k=count; k<totalProcess2;k++)
+    			queue2[k]=queue2[k+1];count--;
+    		flag=0; 
+    	} 
+
+    	if(count==totalProcess2-1) 
+      		count=0; 
+    	else 
+    		count++; 
+    }
+    printf("\n Average Waiting Time= %f\n", wait_time/n); 
+    printf("Avg Turnaround Time = %f" ,turnaround_time/n);   
+}
