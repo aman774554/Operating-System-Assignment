@@ -9,19 +9,26 @@ int main()
 	struct process temp;
     int i,time=0,t1,t2,bu_t=0,largest,totalProcess,count=0,k,pf2=0,totalProcess2,n,pos,j,flag=0,y;
     float wait_time=0,turnaround_time= 0,average_waiting_time,average_turnaround_time;
+    printf("***************************************************\n");
+    printf("***********Lovely Professional University**********\n");
+    printf("*************Aman Chaturvedi(11801628)*************\n");
+    printf("***********************K18CJ***********************\n");
+    printf("***************************************************\n");
     printf("\n Enter Total Number of Processes:\t");
     scanf("%d", &totalProcess);
+    
     n=totalProcess;
     for(i=0;i<totalProcess;i++)
     {
-    	printf("\nEnter Process name:-");
+    	printf("-----------------------------------------------\n");
+    	printf("\nEnter Process name:");
     	fflush(stdin);
         scanf("%d",&queue1[i].process_name);
         printf("\nEnter Details For processor %d:\n",queue1[i].process_name);
-        printf("Enter Arrival Time:-");
+        printf("Enter Arrival Time:");
         fflush(stdin);
         scanf("%d",&queue1[i].arrival_time);
-        printf("Enter Burst Time:-");
+        printf("Enter Burst Time:");
         fflush(stdin);
         scanf("%d",&queue1[i].burst_time);
         queue1[i].burst_timecopy=queue1[i].burst_time;
@@ -29,10 +36,12 @@ int main()
         fflush(stdin);
         scanf("%d",&queue1[i].priority);
     }
-    printf("\nEnter Time Quantum for Fixed priority queue:-");
+    printf("-----------------------------------------------\n");
+    printf("\nEnter Time Quantum for Fixed priority queue:");
     scanf("%d",&t1);
-    printf("\nEnter Time Quantum for Round Robin queue:-");
+    printf("\nEnter Time Quantum for Round Robin queue:");
     scanf("%d",&t2);
+    printf("-----------------------------------------------\n");
     printf("\n\nProcess\t|Turnaround Time|Waiting Time\n\n");
     for(i=0;i<totalProcess;i++)
     {
@@ -96,7 +105,6 @@ int main()
 			if(i==totalProcess-1)
 				i=-1;
 	}
-	
 	totalProcess2=pf2;
 	for(count=0;totalProcess2!=0;) 
 	{ 
@@ -132,3 +140,4 @@ int main()
     printf("\n Average Waiting Time= %f\n", wait_time/n); 
     printf("Avg Turnaround Time = %f\n" ,turnaround_time/n);   
 }
+
